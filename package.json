@@ -1,0 +1,26 @@
+{
+  "name": "play-mcp",
+  "version": "1.0.0",
+  "description": "Playwright MCP workflow automation",
+  "main": "src/index.ts",
+  "scripts": {
+    "start": "npx tsx src/index.ts",
+    "dev": "npx tsx watch src/index.ts",
+    "test": "npx tsx src/index.ts"
+  },
+  "dependencies": {
+    "playwright": "^1.40.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.0.0"
+  },
+  "keywords": [
+    "playwright",
+    "automation",
+    "mcp"
+  ],
+  "author": "",
+  "license": "MIT"
+}

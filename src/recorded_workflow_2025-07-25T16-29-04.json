@@ -1,0 +1,81 @@
+{
+  "name": "Recorded Workflow",
+  "description": "Recorded on 2025/7/26 00:31:10",
+  "version": "1.0.0",
+  "input_schema": [],
+  "steps": [
+      {
+          "type": "navigation",
+          "timestamp": 1753461051027,
+          "tabId": 1827189548,
+          "url": "https://www.baidu.com/"
+      },
+      {
+          "type": "click",
+          "timestamp": 1753461052695,
+          "tabId": 1827189548,
+          "url": "https://www.baidu.com/",
+          "frameUrl": "https://www.baidu.com/",
+          "xpath": "id(\"kw\")",
+          "cssSelector": "input.s_ipt",
+          "elementTag": "INPUT",
+          "elementText": ""
+      },
+      {
+          "type": "input",
+          "timestamp": 1753461055736,
+          "tabId": 1827189548,
+          "url": "https://www.baidu.com/",
+          "frameUrl": "https://www.baidu.com/",
+          "xpath": "id(\"kw\")",
+          "cssSelector": "input.s_ipt",
+          "elementTag": "INPUT",
+          "value": "playwright官网"
+      },
+      {
+          "type": "key_press",
+          "timestamp": 1753461055964,
+          "tabId": 1827189548,
+          "url": "https://www.baidu.com/",
+          "frameUrl": "https://www.baidu.com/",
+          "key": "Enter",
+          "xpath": "id(\"kw\")",
+          "cssSelector": "input.s_ipt",
+          "elementTag": "INPUT"
+      },
+      {
+          "type": "click",
+          "timestamp": 1753461055965,
+          "tabId": 1827189548,
+          "url": "https://www.baidu.com/",
+          "frameUrl": "https://www.baidu.com/",
+          "xpath": "id(\"su\")",
+          "cssSelector": "input.bg.s_btn[type=\"submit\"][id=\"su\"]",
+          "elementTag": "INPUT",
+          "elementText": ""
+      },
+      {
+          "type": "navigation",
+          "timestamp": 1753461061687,
+          "tabId": 1827189554,
+          "url": "https://www.baidu.com/link?url=fak2pAH4HI6_1Cg7n5vbwbZqXA3oUisee2RKpLndT1rAAAy-UZ_eeiBDDdpryQ4x&wd=&eqid=d8bfadcf006d6eca000000046883b140"
+      },
+      {
+          "type": "navigation",
+          "timestamp": 1753461062836,
+          "tabId": 1827189554,
+          "url": "https://playwright.dev/"
+      },
+      {
+          "type": "click",
+          "timestamp": 1753461067361,
+          "tabId": 1827189554,
+          "url": "https://playwright.dev/",
+          "frameUrl": "https://playwright.dev/",
+          "xpath": "id(\"__docusaurus_skipToContent_fallback\")/header[1]/div[1]/div[1]/a[1]",
+          "cssSelector": "a.getStarted_Sjon[href=\"/docs/intro\"]",
+          "elementTag": "A",
+          "elementText": "Get started"
+      }
+  ]
+}
