@@ -1,4 +1,4 @@
-OKFred: 使用playwright MCP，帮我构建playwright脚本。脚本内容都放在一个文件中，然后每个步骤都变成function，以便分类处理。且我不想写class，因为我不太会。都给我写function。最后内容给我放到index.ts里，因为当前使用的nodejs可以直接运行ts
+OKFred: 使用playwright MCP，帮我构建playwright脚本。脚本内容都放在一个文件中，然后每个步骤都变成function，以便分类处理。且我不想写class，都给我写function。最后内容给我放到index.ts里，因为当前使用的nodejs可以直接运行ts
 
 GitHub Copilot: 我来帮你使用Playwright MCP构建一个脚本，将录制的工作流转换为TypeScript函数。首先让我查看当前的文件状态，然后构建对应的Playwright脚本。 现在我来分析录制的工作流，并创建对应的Playwright函数。根据录制的workflow，我看到主要步骤是：
 1. 导航到百度
