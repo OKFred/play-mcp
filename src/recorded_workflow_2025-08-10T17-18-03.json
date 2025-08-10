@@ -1,0 +1,70 @@
+{
+  "name": "Recorded Workflow",
+  "description": "Recorded on 2025/8/11 01:17:57",
+  "version": "1.0.0",
+  "input_schema": [],
+  "steps": [
+    {
+      "type": "navigation",
+      "timestamp": 1754846257832,
+      "tabId": 1827196829,
+      "url": "https://www.baidu.com/"
+    },
+    {
+      "type": "click",
+      "timestamp": 1754846259378,
+      "tabId": 1827196829,
+      "url": "https://www.baidu.com/",
+      "frameUrl": "https://www.baidu.com/",
+      "xpath": "id(\"chat-textarea\")",
+      "cssSelector": "textarea.chat-input-textarea.chat-input-scroll-style[id=\"chat-textarea\"]",
+      "elementTag": "TEXTAREA",
+      "elementText": ""
+    },
+    {
+      "type": "input",
+      "timestamp": 1754846260093,
+      "tabId": 1827196829,
+      "url": "https://www.baidu.com/",
+      "frameUrl": "https://www.baidu.com/",
+      "xpath": "id(\"chat-textarea\")",
+      "cssSelector": "textarea.chat-input-textarea.chat-input-scroll-style[id=\"chat-textarea\"]",
+      "elementTag": "TEXTAREA",
+      "value": "playwright官网"
+    },
+    {
+      "type": "click",
+      "timestamp": 1754846266241,
+      "tabId": 1827196829,
+      "url": "https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=1&rsv_idx=1&tn=baidu&wd=playwright%E5%AE%98%E7%BD%91&fenlei=256&rsv_pq=0xff1628f30201ee3f&rsv_t=9bebMELc6D4870nvbE9DyJnVUm%2B52Gylkzq3hst1NPK7mY7d62RnEz3SGtHN&rqlang=en&rsv_dl=ib&rsv_enter=1&rsv_sug3=4&rsv_n=2&rsv_sug1=2&rsv_sug7=100&rsv_btype=i&inputT=5960&rsv_sug4=6195",
+      "frameUrl": "https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=1&rsv_idx=1&tn=baidu&wd=playwright%E5%AE%98%E7%BD%91&fenlei=256&rsv_pq=0xff1628f30201ee3f&rsv_t=9bebMELc6D4870nvbE9DyJnVUm%2B52Gylkzq3hst1NPK7mY7d62RnEz3SGtHN&rqlang=en&rsv_dl=ib&rsv_enter=1&rsv_sug3=4&rsv_n=2&rsv_sug1=2&rsv_sug7=100&rsv_btype=i&inputT=5960&rsv_sug4=6195",
+      "xpath": "id(\"1\")/div[1]/div[1]/div[1]/div[1]/div[1]/h3[1]/a[1]/div[1]/div[1]/p[1]/span[1]/span[1]/span[1]",
+      "cssSelector": "span.tts-b-hl",
+      "elementTag": "SPAN",
+      "elementText": "...reliable end-to-end testing for modern web apps | Playwright"
+    },
+    {
+      "type": "navigation",
+      "timestamp": 1754846266434,
+      "tabId": 1827196832,
+      "url": "https://www.baidu.com/link?url=dBy8Zqiv53HJIy8w5slfZhQB72997I8A8jEC1fTdD2NfsxYdbqwJwlgc073LC5U2&wd=&eqid=fff8a8b801ea88d3000000046898d42f"
+    },
+    {
+      "type": "navigation",
+      "timestamp": 1754846267722,
+      "tabId": 1827196832,
+      "url": "https://playwright.dev/"
+    },
+    {
+      "type": "click",
+      "timestamp": 1754846269541,
+      "tabId": 1827196832,
+      "url": "https://playwright.dev/",
+      "frameUrl": "https://playwright.dev/",
+      "xpath": "id(\"__docusaurus_skipToContent_fallback\")/header[1]/div[1]/div[1]/a[1]",
+      "cssSelector": "a.getStarted_Sjon[href=\"/docs/intro\"]",
+      "elementTag": "A",
+      "elementText": "Get started"
+    }
+  ]
+}

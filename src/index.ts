@@ -22,24 +22,25 @@ async function navigateToBaidu(page: Page): Promise<void> {
 // 点击搜索框
 async function clickSearchBox(page: Page): Promise<void> {
     console.log('点击搜索框...');
-    await page.locator('#kw').click();
+    // 基于新录制工作流，使用AI聊天搜索框，使用更精确的定位策略
+    await page.locator('textarea.chat-input-textarea.chat-input-scroll-style[id="chat-textarea"]').first().click();
     await page.waitForTimeout(500);
 }
 
 // 输入搜索内容
 async function inputSearchTerm(page: Page, searchTerm: string): Promise<void> {
     console.log(`输入搜索内容: ${searchTerm}`);
-    await page.locator('#kw').fill(searchTerm);
+    // 基于新录制工作流，使用AI聊天搜索框的textarea，使用更精确的定位策略
+    await page.locator('textarea.chat-input-textarea.chat-input-scroll-style[id="chat-textarea"]').first().fill(searchTerm);
     await page.waitForTimeout(500);
 }
 
 // 执行搜索（按Enter或点击搜索按钮）
 async function performSearch(page: Page): Promise<void> {
     console.log('执行搜索...');
-    // 可以选择按Enter键或点击搜索按钮
-    await page.keyboard.press('Enter');
-    // 或者使用点击搜索按钮的方式：
-    // await page.locator('#su').click();
+    // 基于新录制工作流，在AI聊天搜索框中按Enter键触发搜索
+    // 使用更精确的定位策略避免strict mode violation
+    await page.locator('textarea.chat-input-textarea.chat-input-scroll-style[id="chat-textarea"]').first().press('Enter');
     await page.waitForLoadState('networkidle');
 }
 
