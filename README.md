@@ -1,13 +1,14 @@
 # Playwright MCP 工作流自动化
 
-这是一个基于 Playwright 的自动化脚本，将录制的工作流转换为可执行的 TypeScript 函数。
+这是一个基于 Playwright 的自动化脚本，结合 Playwright MCP和rrweb录制的脚本，将录制的工作流转换为可执行的 TypeScript 函数。
 
 ## 项目结构
 
 - `src/index.ts` - 主要的 Playwright 自动化脚本
-- `src/recorded_workflow_2025-07-25T16-29-04.json` - 原始录制的工作流
+- `src/recorded_workflow_2026-02-05T05-25-54.json` - 原始录制的工作流
 - `package.json` - 项目依赖和脚本配置
 - `tsconfig.json` - TypeScript 配置
+- `ext/` - rrweb拓展程序目录
 
 ## 功能模块
 
@@ -39,15 +40,17 @@ npx playwright install chromium
 ## 运行脚本
 
 ### 直接运行
+
 \`\`\`bash
 npx tsx src/index.ts
 \`\`\`
 
 ### 使用npm脚本
+
 \`\`\`bash
-npm start        # 运行脚本
-npm run dev      # 监听模式运行
-npm test         # 测试运行
+npm start # 运行脚本
+npm run dev # 监听模式运行
+npm test # 测试运行
 \`\`\`
 
 ## 脚本特性
@@ -66,21 +69,25 @@ npm test         # 测试运行
 脚本实现了基于DOM结构的精确定位：
 
 1. **文本匹配**: 寻找包含"Playwright官网"的span元素
-   ```typescript
-   const spanElements = page.locator('//span[contains(@class, "cosc-source-text") and contains(text(), "Playwright")]');
-   ```
+
+    ```typescript
+    const spanElements = page.locator(
+        '//span[contains(@class, "cosc-source-text") and contains(text(), "Playwright")]',
+    );
+    ```
 
 2. **结构关系**: 根据录制的选择器关系找到对应链接
-   ```
-   span: #\31 > div > div > div > div:nth-child(4) > div > div > div > a > span
-   link: #\31 > div > div > div > div.title-wrapper_6E6PV > div > h3 > a
-   ```
 
-3. **多重备用策略**: 
-   - 精确CSS选择器匹配
-   - XPath元素查找
-   - 祖先节点导航
-   - 通用文本匹配
+    ```
+    span: #\31 > div > div > div > div:nth-child(4) > div > div > div > a > span
+    link: #\31 > div > div > div > div.title-wrapper_6E6PV > div > h3 > a
+    ```
+
+3. **多重备用策略**:
+    - 精确CSS选择器匹配
+    - XPath元素查找
+    - 祖先节点导航
+    - 通用文本匹配
 
 ### 错误处理和重试
 
@@ -111,18 +118,22 @@ npm test         # 测试运行
 ## 技术亮点
 
 ### DOM结构分析
+
 脚本能够：
+
 - 解析复杂的DOM结构关系
 - 使用XPath进行精确元素定位
 - 处理动态生成的搜索结果
 
 ### 多策略选择器
+
 - CSS选择器
 - XPath表达式
 - 文本内容匹配
 - 祖先节点查找
 
 ### 智能重试机制
+
 - 选择器超时自动切换
 - 多种备用定位策略
 - 失败时的备用方案
