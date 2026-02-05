@@ -22,25 +22,24 @@ async function navigateToBaidu(page: Page): Promise<void> {
 // 点击搜索框
 async function clickSearchBox(page: Page): Promise<void> {
     console.log('点击搜索框...');
-    // 基于新录制工作流，使用AI聊天搜索框，使用更精确的定位策略
-    await page.locator('textarea.chat-input-textarea.chat-input-scroll-style[id="chat-textarea"]').first().click();
+    // 百度首页的搜索框ID是#kw
+    await page.locator('#kw').click();
     await page.waitForTimeout(500);
 }
 
 // 输入搜索内容
 async function inputSearchTerm(page: Page, searchTerm: string): Promise<void> {
     console.log(`输入搜索内容: ${searchTerm}`);
-    // 基于新录制工作流，使用AI聊天搜索框的textarea，使用更精确的定位策略
-    await page.locator('textarea.chat-input-textarea.chat-input-scroll-style[id="chat-textarea"]').first().fill(searchTerm);
+    // 百度首页的搜索框ID是#kw
+    await page.locator('#kw').fill(searchTerm);
     await page.waitForTimeout(500);
 }
 
-// 执行搜索（按Enter或点击搜索按钮）
+// 执行搜索（点击搜索按钮）
 async function performSearch(page: Page): Promise<void> {
     console.log('执行搜索...');
-    // 基于新录制工作流，在AI聊天搜索框中按Enter键触发搜索
-    // 使用更精确的定位策略避免strict mode violation
-    await page.locator('textarea.chat-input-textarea.chat-input-scroll-style[id="chat-textarea"]').first().press('Enter');
+    // 百度首页的"百度一下"按钮ID是#su
+    await page.locator('#su').click();
     await page.waitForLoadState('networkidle');
 }
 
@@ -50,106 +49,31 @@ async function clickPlaywrightResult(page: Page): Promise<Page> {
     
     // 等待搜索结果加载
     await page.waitForLoadState('networkidle');
+    await page.waitForTimeout(2000);
     
     try {
-        // 根据录制工作流的DOM结构，寻找包含"Playwright官网"文本的span，然后找到对应的链接
-        console.log('寻找包含"Playwright官网"的搜索结果...');
+        // 基于rrweb工作流，查找包含"Playwright"的搜索结果链接
+        // 优先使用文本匹配方式，更稳定可靠
+        console.log('查找包含"Playwright"的搜索结果...');
         
-        // 等待搜索结果容器加载
-        await page.waitForTimeout(3000); // 增加等待时间
+        // 寻找包含"reliable end-to-end testing"或"Playwright"的链接
+        const playwrightLink = page.locator('a').filter({ 
+            hasText: /Playwright|reliable end-to-end testing/i 
+        }).first();
         
-        // 方法1: 根据你提供的选择器关系寻找
-        try {
-            // 先找到包含"Playwright官网"文本的span元素
-            console.log('尝试寻找包含"Playwright官网"的span元素...');
-            
-            // 更精确的方式：使用XPath寻找包含特定文本的span
-            const spanElements = page.locator('//span[contains(@class, "cosc-source-text") and contains(text(), "Playwright")]');
-            const spanCount = await spanElements.count();
-            console.log(`找到 ${spanCount} 个匹配的span元素`);
-            
-            if (spanCount > 0) {
-                // 获取第一个匹配的span元素
-                const targetSpan = spanElements.first();
-                
-                // 方法A: 根据DOM结构向上查找到搜索结果容器，然后查找标题链接
-                const searchResultItem = targetSpan.locator('xpath=ancestor::*[contains(@id, "")]').first();
-                
-                // 尝试多种可能的标题链接选择器
-                const possibleLinkSelectors = [
-                    '.title-wrapper_6E6PV h3 a',
-                    'h3 a',
-                    '.title-wrapper h3 a',
-                    '[class*="title"] a',
-                    'a[href*="playwright"]'
-                ];
-                
-                for (const linkSelector of possibleLinkSelectors) {
-                    try {
-                        const titleLink = searchResultItem.locator(linkSelector).first();
-                        await titleLink.waitFor({ timeout: 1000 });
-                        console.log(`使用选择器 ${linkSelector} 找到标题链接`);
-                        
-                        const [newPage] = await Promise.all([
-                            page.context().waitForEvent('page'),
-                            titleLink.click()
-                        ]);
-                        
-                        await newPage.waitForLoadState('networkidle');
-                        console.log('成功点击链接并打开新页面');
-                        return newPage;
-                        
-                    } catch (linkError) {
-                        console.log(`选择器 ${linkSelector} 未找到链接，继续尝试...`);
-                        continue;
-                    }
-                }
-                
-                // 方法B: 如果上面的方法失败，尝试从span向上查找整个搜索结果项，然后找任何链接
-                console.log('尝试从span元素向上查找整个搜索结果项...');
-                const resultContainer = targetSpan.locator('xpath=ancestor::*[position()=5]').first(); // 向上查找5层
-                const anyLink = resultContainer.locator('a').first();
-                
-                await anyLink.waitFor({ timeout: 2000 });
-                console.log('找到搜索结果项中的链接');
-                
-                const [newPage] = await Promise.all([
-                    page.context().waitForEvent('page'),
-                    anyLink.click()
-                ]);
-                
-                await newPage.waitForLoadState('networkidle');
-                return newPage;
-            }
-            
-        } catch (spanError) {
-            console.log('方法1失败，尝试方法2...', String(spanError));
-            
-            // 方法2: 使用更通用的方式寻找包含Playwright的链接
-            const playwrightLinks = page.locator('a').filter({ hasText: /playwright/i });
-            const linkCount = await playwrightLinks.count();
-            console.log(`找到 ${linkCount} 个包含playwright的链接`);
-            
-            if (linkCount > 0) {
-                console.log('点击第一个Playwright相关链接...');
-                const [newPage] = await Promise.all([
-                    page.context().waitForEvent('page'),
-                    playwrightLinks.first().click()
-                ]);
-                
-                await newPage.waitForLoadState('networkidle');
-                return newPage;
-            }
-        }
+        // 等待链接出现并点击，同时监听新页面打开
+        const [newPage] = await Promise.all([
+            page.context().waitForEvent('page'),
+            playwrightLink.click()
+        ]);
         
-        // 方法3: 备用方案 - 直接导航到Playwright官网
-        console.log('所有方法都失败，直接导航到Playwright官网...');
-        await page.goto('https://playwright.dev/');
-        await page.waitForLoadState('networkidle');
-        return page;
+        await newPage.waitForLoadState('networkidle');
+        console.log('成功打开Playwright官网新标签页');
+        return newPage;
         
     } catch (error) {
-        console.log('搜索结果处理失败，直接导航到Playwright官网...', error);
+        // 备用方案：直接导航到Playwright官网
+        console.log('无法通过搜索结果打开，直接导航到Playwright官网...', error);
         await page.goto('https://playwright.dev/');
         await page.waitForLoadState('networkidle');
         return page;
@@ -160,17 +84,15 @@ async function clickPlaywrightResult(page: Page): Promise<Page> {
 async function clickGetStarted(page: Page): Promise<void> {
     console.log('点击Get started按钮...');
     
-    // 根据录制的工作流，使用更精确的选择器
-    // 录制中使用的选择器是：a.getStarted_Sjon[href="/docs/intro"]
     try {
-        // 方法1: 使用录制工作流中的精确选择器
-        await page.locator('a.getStarted_Sjon[href="/docs/intro"]').click();
-        console.log('使用精确选择器成功点击Get started');
+        // 使用更具体的选择器：页面中部的大按钮（GET STARTED）
+        // 方法1: 使用文本"GET STARTED"而不是"Get started"
+        await page.getByRole('link', { name: 'GET STARTED' }).click();
+        console.log('成功点击GET STARTED按钮');
     } catch (error) {
-        console.log('精确选择器失败，尝试备用方法...');
-        // 方法2: 使用文本匹配
-        await page.locator('text="Get started"').first().click();
-        console.log('使用文本匹配成功点击Get started');
+        console.log('主选择器失败，尝试备用方案...', error);
+        // 方法2: 使用class选择器定位首页的大按钮
+        await page.locator('a.getStarted_Sjon').click();
     }
     
     await page.waitForLoadState('networkidle');
